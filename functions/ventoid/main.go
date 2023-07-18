@@ -20,7 +20,7 @@ func main() {
 	for {
 		for tweet := range scraper.GetTweets("hourIyhoroscope", 1) {
 			fmt.Println(tweet.Text)
-			tb.SendToChannel("ventoid", tweet.Text)
+			tb.SendToChannel("@ventoid", tweet.Text)
 			hourAfter = tweet.TimeParsed.Add(time.Hour)
 		}
 		if waitTime := hourAfter.Sub(time.Now()); waitTime > 0 {
