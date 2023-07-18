@@ -5,8 +5,8 @@ import (
 	"os"
 	"time"
 
-	"github.com/encleine/zodiac/api/bot"
-	twit "github.com/encleine/zodiac/api/twit"
+	"github.com/encleine/ventoid/bot"
+	"github.com/encleine/ventoid/twit"
 )
 
 func main() {
@@ -15,12 +15,12 @@ func main() {
 		os.Getenv("username"),
 		os.Getenv("password"),
 	)
-	bot := bot.NewBot(os.Getenv("token"), os.Getenv("hookurl"))
+	tb := bot.NewBot(os.Getenv("token"), os.Getenv("hookurl"))
 
 	for {
 		for tweet := range scraper.GetTweets("hourIyhoroscope", 1) {
 			fmt.Println(tweet.Text)
-			bot.SendMessage(1806936826, tweet.Text)
+			tb.SendToChannel("ventoid", tweet.Text)
 			hourAfter = tweet.TimeParsed.Add(time.Hour)
 		}
 		if waitTime := hourAfter.Sub(time.Now()); waitTime > 0 {
