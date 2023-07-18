@@ -15,7 +15,7 @@ func main() {
 		os.Getenv("username"),
 		os.Getenv("password"),
 	)
-	bot := bot.NewBot(os.Getenv("token"), "")
+	bot := bot.NewBot(os.Getenv("token"), os.Getenv("hookurl"))
 
 	for {
 		for tweet := range scraper.GetTweets("hourIyhoroscope", 1) {

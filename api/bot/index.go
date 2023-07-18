@@ -17,7 +17,7 @@ func NewBot(Bot_token, url string) *Telebot {
 		bot:       bot,
 		callbacks: []Callback{},
 	}
-	// tb.webHook(url)
+	tb.webHook(url)
 	return tb
 }
 
