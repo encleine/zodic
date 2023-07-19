@@ -8,7 +8,7 @@ import (
 	tbot "github.com/go-telegram-bot-api/telegram-bot-api/v5"
 )
 
-func NewBot(Bot_token, url string) *Telebot {
+func NewBot(Bot_token string) *Telebot {
 	var bot, _0 = tbot.NewBotAPI(Bot_token)
 	if _0 != nil {
 		log.Panic(_0)
@@ -17,7 +17,6 @@ func NewBot(Bot_token, url string) *Telebot {
 		bot:       bot,
 		callbacks: []Callback{},
 	}
-	tb.webHook(url)
 	return tb
 }
 
@@ -44,7 +43,8 @@ func (tb *Telebot) webHook(url string) {
 	go http.ListenAndServe(":8443", nil)
 }
 
-func (tb *Telebot) GetUpdates() {
+func (tb *Telebot) GetUpdates(url string) {
+	tb.webHook(url)
 	u := tbot.NewUpdate(0)
 	u.Timeout = 60
 	go func() {
